@@ -1,7 +1,7 @@
 {
   "name": "grunt_forever",
   "description": "Grunt plugin to manage forever tasks.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/diogogmt/grunt_forever",
   "author": {
     "name": "Diogo Monteiro",
