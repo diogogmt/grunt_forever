@@ -4,7 +4,7 @@ var colors = require('ansicolors');
 module.exports = function (grunt) {
   'use strict';
 
-  var gruntForever = require('./lib/gruntForever').init(grunt);
+  var gruntForever = require('./lib/grunt_forever').init(grunt);
   grunt.registerMultiTask('grunt_forever', 'Runs a forever monitor of your node.js server.', function () {
     var options = this.options();
     var action = options.action || 'none';
@@ -28,7 +28,7 @@ module.exports = function (grunt) {
       },
 
       stop: function (callback) {
-        forever.list(options, function (data) {
+        gruntForever.list(options, function (data) {
           if (!data.length) {
             grunt.log.writeln('Stratosphere is not running ' + colors.green('[OK]'));
             return callback();
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
           data.forEach(function (item) {
             (function (process) {
               grunt.log.writeln('Stopping stratosphere process ' + colors.green(process.pid));
-              forever.stop({ process: process.uid }, function (err) {
+              gruntForever.stop({ process: process.uid }, function (err) {
                 if (err) {
                   grunt.log.warn('Error stopping process ' + process.pid + ' -' + colors.red(err));
                 }
