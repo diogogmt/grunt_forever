@@ -1,18 +1,18 @@
-  var _ = require('underscore');
-  var colors = require('ansicolors');
+var _ = require('underscore');
+var colors = require('ansicolors');
 
 module.exports = function (grunt) {
   'use strict';
 
-  var forever = require('./lib/forever').init(grunt);
-  grunt.registerMultiTask('forever', 'Runs a forever monitor of your node.js server.', function () {
+  var gruntForever = require('./lib/gruntForever').init(grunt);
+  grunt.registerMultiTask('grunt_forever', 'Runs a forever monitor of your node.js server.', function () {
     var options = this.options();
     var action = options.action || 'none';
     var done = this.async();
 
     var actions = {
       start:function (callback) {
-        forever.list(options, function (data) {
+        gruntForever.list(options, function (data) {
           if (data.length) {
             grunt.log.writeln('Stratosphere is already running ' + colors.green('[OK]'));
             data.forEach(function (item) {
@@ -20,7 +20,7 @@ module.exports = function (grunt) {
             });
             return callback();
           }
-          forever.start(options, function () {
+          gruntForever.start(options, function () {
             grunt.log.writeln('Stratosphere started' + colors.green('[OK]'));
             callback();
           });
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
       restart: function (callback) {
         actions.stop(function () {
           // When calling actions.start the forever.list is not returning any data and just halting
-          forever.start(options, function (data) {
+          gruntForever.start(options, function (data) {
             grunt.log.writeln('Stratosphere started ' + colors.green('[OK]'));
             callback();
           });
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
       },
 
       status: function (callback) {
-        forever.list(options, function (data) {
+        gruntForever.list(options, function (data) {
           if (data.length) {
             grunt.log.writeln('Stratosphere active processes');
             data.forEach(function (proc) {
