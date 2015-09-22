@@ -1,7 +1,7 @@
 {
   "name": "grunt_forever",
   "description": "Grunt plugin to manage forever tasks.",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "homepage": "https://github.com/diogogmt/grunt_forever",
   "author": {
     "name": "Diogo Monteiro",
@@ -30,7 +30,7 @@
     "underscore": "1.8.3",
     "forever": "0.15.1",
     "ansicolors": "0.3.2",
-    "forever-monitor": "1.6.1"
+    "forever-monitor": "https://github.com/foreverjs/forever-monitor/archive/master.tar.gz"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "^0.9.2",
