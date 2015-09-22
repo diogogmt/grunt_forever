@@ -5,7 +5,8 @@
 'use strict';
 
 // External libs.
-var forever = require('forever');
+var forever = require('forever'),
+    foreverMonitor = require('forever-monitor');
 
 exports.init = function() {
   var exports = {};
@@ -20,7 +21,11 @@ exports.init = function() {
       forever.startDaemon(appFile, config);
       return callback();
     }
-    forever.start(appFile, config);
+    var child = new (foreverMonitor).Monitor(appFile, config);
+    child.on('exit', function () {
+      console.log(appFile, ' with config: ', config, ' -- has exited');
+    });
+    child.start();
     // block action since we want to run forever in the foreground
   };
 
